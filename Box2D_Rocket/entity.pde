@@ -1,0 +1,79 @@
+class Entity
+{
+  float x;
+  float y;
+
+  PImage img;
+  String type;
+
+  Body body;
+  boolean isAlive;
+
+  int imgH;
+  int imgW;
+
+  Entity(float _x, float _y, PImage _img, String _type, boolean _isAlive)
+  {
+    x = _x;
+    y = _y;
+
+    img = _img;
+    type = _type;
+    isAlive = _isAlive;
+  }
+
+  private void createBody(BodyType _bType, float _restitution)
+  {
+    imgH = img.height;
+    imgW = img.width;
+
+    PolygonShape sd = new PolygonShape();
+    float box2dW = box2d.scalarPixelsToWorld(imgW/2);
+    float box2dH = box2d.scalarPixelsToWorld(imgH/2);
+    sd.setAsBox(box2dW, box2dH);
+
+    FixtureDef fd = new FixtureDef();
+    fd.shape = sd;
+
+    fd.density = 1;
+    fd.friction = 0.3;
+    fd.restitution = _restitution;
+
+    BodyDef bd = new BodyDef();
+    bd.type = _bType;
+
+    bd.position.set(box2d.coordPixelsToWorld(x, y));
+    body = box2d.createBody(bd);
+    body.createFixture(fd);
+  }
+
+  public void display()
+  {
+    PVector pos = box2d.getBodyPixelCoordPVector(body);
+    float a = body.getAngle();
+
+    imageMode(CENTER);
+    pushMatrix();
+    translate(pos.x, pos.y);
+    rotate(-a);
+    image(img, 0, 0);
+    popMatrix();
+  }
+
+  private void killBody()
+  {
+    box2d.destroyBody(body);
+  }
+
+  boolean done()
+  {
+    Vec2 pos = box2d.getBodyPixelCoord(body);
+
+    if (pos.y > height + imgH)
+    {
+      killBody();
+      return true;
+    }
+    return false;
+  }
+}
