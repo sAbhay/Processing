@@ -58,6 +58,7 @@ void draw() {
     }
     
     println(ans);
+    println(tape);
   }
 }
 

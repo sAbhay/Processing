@@ -7,7 +7,7 @@ char S[] = {'0', 'c', B};
 String I = "q0";
 String F = "q3";
 String tape = "S+000000^x+0000^x+00^x+00^0";
-int x[] = {3, 4};
+int x[] = {1, 2, 3};
 String tapes[] = new String[x.length];
 String xin[] = new String[x.length];
 boolean headRight = true;
@@ -27,21 +27,21 @@ void setup() {
   rectMode(CENTER);
   textAlign(CENTER);
 
-  output = createWriter("output34.txt");
-
   for (int i = 0; i < 1; i++) {
     tape += B;
   }
 
+  String fileadd = "";
+
   for (int i = 0; i < x.length; i++) {
-    //println(x[i]);
     for (int j = 0; j < x[i]; j++) {
       xin[i] += '0';
     }
+    fileadd += str(x[i]);
     xin[i] = xin[i].substring(4, xin[i].length());
   }
-
-  //print(xin[0]);
+  
+  output = createWriter("output"+fileadd+".txt");
 
   for (int i = 0; i < x.length; i++) {
     tapes[i] = tape.replaceAll("x", xin[i]);
@@ -194,7 +194,6 @@ boolean delta() {
 void command(String nState, char toWrite, boolean hR) {
   currState = nState;
   tapes[c] = tapes[c].substring(0, headPos) + toWrite + tapes[c].substring(headPos+1);
-  //tapes[c] = nTape;
   if (hR) headRight = true; 
   else headRight = false;
 }

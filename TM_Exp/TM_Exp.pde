@@ -6,7 +6,7 @@ char T[] = {'0', 'X', '+'};
 char S[] = {'0', 'c', B};
 String I = "q0";
 String F = "q3";
-String tape = "S000^0";
+String tape = "S000^00";
 boolean headRight = true;
 int headPos = 1;
 int tSize = 50;
@@ -45,6 +45,8 @@ void draw() {
   if (!delta()) {
     if (headRight) headPos++; else headPos--;
   }
+  
+  println(tape);
 }
 
 boolean delta() {

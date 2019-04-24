@@ -6,7 +6,7 @@ char T[] = {'0', 'X', '+'};
 char S[] = {'0', 'c', B};
 String I = "q0";
 String F = "q3";
-String tape = "S000*000";
+String tape = "S00*00";
 boolean headRight = true;
 int headPos = 1;
 int tSize = 50;
@@ -25,7 +25,7 @@ void setup() {
 
 void draw() {
   background(255);
-  delay(100);
+  //delay(100);
   
   for (int i = 0; i < tape.length(); i++) {
     fill(0);
